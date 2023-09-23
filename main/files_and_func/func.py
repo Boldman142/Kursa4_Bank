@@ -63,7 +63,7 @@ class Operation:
     def message_date(self):
         """Метод возвращающий дату операции в необходимом формате"""
         date = self.date[:10].split("-")[::-1]
-        return "-".join(date)
+        return ".".join(date)
 
     def message_who(self):
         """Возвращает назначение перевода"""
