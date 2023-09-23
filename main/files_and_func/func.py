@@ -1,5 +1,4 @@
 from opetations import load_data
-# dict_keys(['id', 'state', 'date', 'operationAmount', 'description', 'from', 'to'])
 import time
 
 
@@ -26,11 +25,8 @@ def complit_operation():
     return comp
 
 
-def show_latest_transaction(how, all_=False):
-    if all_:
-        list_operation = get_data()
-    else:
-        list_operation = complit_operation()
+def show_latest_transaction(how):
+    list_operation = complit_operation()
     for i in range(0, how):
         action = Operation(list_operation[i])
         message = f"""{action.message_date()} {action.message_who()}
