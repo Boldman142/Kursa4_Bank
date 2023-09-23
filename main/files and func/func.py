@@ -26,6 +26,19 @@ def complit_operation():
     return comp
 
 
+def show_latest_transaction(how, all_=False):
+    if all_:
+        list_operation = get_data()
+    else:
+        list_operation = complit_operation
+    for i in range(0, how):
+        action = Operation(list_operation[i])
+        message = f"""{action.message_date()} {action.message_who()} 
+{action.message_from()} -> {action.message_to()}
+{action.message_how_many()} {action.message_currency()}\n"""
+        print(message)
+
+
 class Operation:
     def __init__(self, dic):
         self.date = dic["date"]
@@ -60,7 +73,6 @@ class Operation:
         """Возвращает назначение перевода"""
         return self.whom
 
-    @property
     def message_from(self):
         """Функция 'шифрующая' номер откуда совершен перевод звездочками, и разделяет номер
         на блоки по 4 цифры. На вывод идет сообщение с этим номером и указанием карты.
@@ -95,9 +107,3 @@ class Operation:
     def message_currency(self):
         """Возвращает значение валюты, в которой был осуществлен перевод"""
         return self.currency
-
-# b = 4
-# i = complit_operation()
-# print(i[b]["to"])
-# a = Operation(i[b])
-# print(a.message_to())
