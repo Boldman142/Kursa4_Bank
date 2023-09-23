@@ -19,11 +19,11 @@ def get_data():
 def complit_operation():
     """Функция отсортировывающая выполненные и не выполненные операции, на выходе только выполненные"""
     all_operation = get_data()
-    complit = []
+    comp = []
     for unit in all_operation:
         if unit["state"] == "EXECUTED":
-            complit.append(unit)
-    return complit
+            comp.append(unit)
+    return comp
 
 
 class Operation:
@@ -59,6 +59,7 @@ class Operation:
     def message_who(self):
         """Возвращает назначение перевода"""
         return self.whom
+
     @property
     def message_from(self):
         """Функция 'шифрующая' номер откуда совершен перевод звездочками, и разделяет номер
@@ -94,7 +95,6 @@ class Operation:
     def message_currency(self):
         """Возвращает значение валюты, в которой был осуществлен перевод"""
         return self.currency
-
 
 # b = 4
 # i = complit_operation()
