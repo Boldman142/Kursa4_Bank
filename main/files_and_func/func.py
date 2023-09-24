@@ -29,9 +29,9 @@ def show_latest_transaction(how):
     list_operation = complit_operation()
     for i in range(0, how):
         action = Operation(list_operation[i])
-        message = f"""{action.message_date()} {action.message_who()}
+        message = f"""\n{action.message_date()} {action.message_who()}
 {action.message_from()} -> {action.message_to()}
-{action.message_how_many()} {action.message_currency()}\n"""
+{action.message_how_many()} {action.message_currency()}"""
         print(message)
 
 
