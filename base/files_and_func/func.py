@@ -27,6 +27,10 @@ def complit_operation():
 
 def show_latest_transaction(how):
     list_operation = complit_operation()
+    all_oper = len(list_operation)
+    if how > all_oper:
+        how = all_oper
+        print(f"Запрошено слишком много операций. Всего их {all_oper}, выведены все.")
     for i in range(0, how):
         action = Operation(list_operation[i])
         message = f"""\n{action.message_date()} {action.message_who()}
