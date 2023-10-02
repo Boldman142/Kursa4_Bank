@@ -9,8 +9,6 @@ def get_data():
     operations = load_data()
     for pay in operations:
         if not pay == {}:
-            if not "from" in pay:
-                pay["from"] = None
             operation_list.append(pay)
     return list(sorted(operation_list, key=lambda x: time.strptime(x['date'], '%Y-%m-%dT%H:%M:%S.%f')))
 
@@ -27,10 +25,10 @@ def complit_operation():
 
 def show_latest_transaction(how):
     list_operation = complit_operation()
-    all_oper = len(list_operation)
-    if how > all_oper:
-        how = all_oper
-        print(f"Запрошено слишком много операций. Всего их {all_oper}, выведены все.")
+    all_operate = len(list_operation)
+    if how > all_operate:
+        how = all_operate
+        print(f"Запрошено слишком много операций. Всего их {all_operate}, выведены все.")
     for i in range(0, how):
         action = Operation(list_operation[i])
         message = f"""\n{action.message_date()} {action.message_who()}
@@ -43,7 +41,7 @@ class Operation:
     def __init__(self, dic):
         self.date = dic["date"]
         self.whom = dic["description"]
-        self.from_ = dic["from"]
+        self.from_ = dic.get("from")
         self.to = dic["to"]
         self.how_many = dic["operationAmount"]["amount"]
         self.currency = dic["operationAmount"]["currency"]["name"]
