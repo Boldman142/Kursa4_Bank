@@ -35,7 +35,7 @@ def show_latest_transaction(how):
         action = Operation(list_operation[i])
         message = f"""\n{action.message_date()} {action.message_who()}
 {action.message_from()} -> {action.message_to()}
-{action.message_how_many()} {action.message_currency()}"""
+{action.how_many} {action.currency}"""
         print(message)
 
 
@@ -60,9 +60,7 @@ class Operation:
         .message_date - дата операции в необходимом формате
         .message_who - назначение перевода
         .message_from - с какого счета осуществлена операция, номер указывается зашифрованным
-        .message_to - на какой счет осуществлен перевод, указываются его последние 4 цифры
-        .message_how_many - какая сумма была переведена
-        .message_currency - в какой валюте был перевод"""
+        .message_to - на какой счет осуществлен перевод, указываются его последние 4 цифры"""
 
     def message_date(self):
         """Метод возвращающий дату операции в необходимом формате"""
@@ -81,9 +79,7 @@ class Operation:
             return "Неизвестно"
         text = self.from_.split(" ")
         num_from = list(str(text.pop(-1)))
-        for number in range(6, len(num_from) - 4):
-            del num_from[number]
-            num_from.insert(number, "*")
+        num_from[6:len(num_from) - 4] = "*" * (len(num_from) - 10)
         for num in range(len(num_from)):
             if num in [4, 9, 14, 19, 24, 29]:
                 num_from.insert(num, " ")
@@ -95,15 +91,7 @@ class Operation:
         """Функция возвращает название карты откуда совершен перевод, и его последние 4 цифры"""
         text = self.to.split(" ")
         num_to = list(str(text.pop(-1)))[-4:]
-        [num_to.insert(0, "*") for i in range(0, 2)]
+        num_to.insert(0, "**")
         secret_num_to = "".join(num_to)
         text.append(secret_num_to)
         return " ".join(text)
-
-    def message_how_many(self):
-        """Возвращает сумму перевода"""
-        return self.how_many
-
-    def message_currency(self):
-        """Возвращает значение валюты, в которой был осуществлен перевод"""
-        return self.currency
