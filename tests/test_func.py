@@ -4,6 +4,16 @@ from files_and_func.func import *
 
 
 @pytest.fixture
+def fix_get_data(get_all_operations):
+    operation_list = []
+    operations = get_all_operations
+    for pay in operations:
+        if not pay == {}:
+            operation_list.append(pay)
+    return list(sorted(operation_list, key=lambda x: time.strptime(x['date'], '%Y-%m-%dT%H:%M:%S.%f')))
+
+
+@pytest.fixture
 def get_dic():
     return [{
         "id": 441945886,
@@ -88,3 +98,7 @@ def test_message_who(get_dic):
 def test_show_latest_transaction(answer):
     assert show_latest_transaction(1) == print(answer[0])
     assert show_latest_transaction(2) == print(answer)
+
+
+def test_get_data(fix_get_data):
+    assert get_data() == fix_get_data
