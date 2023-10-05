@@ -1,5 +1,6 @@
 import pytest
-from base.files_and_func.func import *
+
+from files_and_func.func import *
 
 
 @pytest.fixture
@@ -84,7 +85,6 @@ def test_message_who(get_dic):
     assert Operation(get_dic[0]).message_who() == "Перевод организации"
 
 
-
-# def test_show_latest_transaction(answer):
-#     assert show_latest_transaction(1) == answer[0]
-#     # assert show_latest_transaction(2) == answer
+def test_show_latest_transaction(answer):
+    assert show_latest_transaction(1) == print(answer[0])
+    assert show_latest_transaction(2) == print(answer)

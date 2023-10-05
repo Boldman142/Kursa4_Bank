@@ -1,4 +1,4 @@
-from base.files_and_func.opetations import load_data
+from files_and_func.opetations import load_data
 import time
 
 
