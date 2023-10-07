@@ -1,21 +1,23 @@
 from files_and_func.opetations import load_data
 import time
+import os
 
-
-def get_data():
+def get_data(path):
     """Функция, которая выдает список операций, без пустых словарей и отсортированный по дате,
     а также добавляет ключ 'from' в те словари, где его нет"""
     operation_list = []
-    operations = load_data()
+    operations = load_data(path)
     for pay in operations:
         if not pay == {}:
             operation_list.append(pay)
-    return list(sorted(operation_list, key=lambda x: time.strptime(x['date'], '%Y-%m-%dT%H:%M:%S.%f')))
+    return list(sorted(operation_list, key=lambda
+        x: time.strptime(x['date'], '%Y-%m-%dT%H:%M:%S.%f'), reverse=True)
+                )
 
 
-def complit_operation():
+def complit_operation(path):
     """Функция отсортировывающая выполненные и не выполненные операции, на выходе только выполненные"""
-    all_operation = get_data()
+    all_operation = get_data(path)
     comp = []
     for unit in all_operation:
         if unit["state"] == "EXECUTED":
@@ -23,8 +25,8 @@ def complit_operation():
     return comp
 
 
-def show_latest_transaction(how):
-    list_operation = complit_operation()
+def show_latest_transaction(how, path):
+    list_operation = complit_operation(path)
     all_operate = len(list_operation)
     if how > all_operate:
         how = all_operate

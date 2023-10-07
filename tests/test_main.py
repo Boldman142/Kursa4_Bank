@@ -2,6 +2,7 @@ from base.main import *
 
 
 def test_main():
-    assert show_latest_transaction(1) == print("""13.01.2018 Перевод с карты на карту
-Visa Classic 8906 17** **** 3215 -> Visa Platinum **8217
-55985.82 USD""")
+    path_ = os.path.join("start_data", "operations.json")
+    assert show_latest_transaction(1, path_) == print("""08.12.2019 Открытие вклада
+Неизвестно -> Счет **5907
+41096.24 USD""")

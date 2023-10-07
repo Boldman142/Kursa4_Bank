@@ -1,5 +1,4 @@
 import pytest
-
 from files_and_func.func import *
 
 
@@ -10,7 +9,9 @@ def fix_get_data(get_all_operations):
     for pay in operations:
         if not pay == {}:
             operation_list.append(pay)
-    return list(sorted(operation_list, key=lambda x: time.strptime(x['date'], '%Y-%m-%dT%H:%M:%S.%f')))
+    return list(sorted(operation_list, key=lambda
+        x: time.strptime(x['date'], '%Y-%m-%dT%H:%M:%S.%f'), reverse=True)
+                )
 
 
 @pytest.fixture
@@ -49,12 +50,12 @@ def get_dic():
 
 @pytest.fixture
 def answer():
-    return ["""13.01.2018 Перевод с карты на карту
-Visa Classic 8906 17** **** 3215 -> Visa Platinum **8217
-55985.82 USD""",
-            """21.01.2018 Перевод со счета на счет
-Счет 3340 72** **** **** 7865 -> Счет **1215
-96900.90 руб."""
+    return ["""08.12.2019 Открытие вклада
+Неизвестно -> Счет **5907
+41096.24 USD""",
+            """07.12.2019 Перевод организации
+Visa Classic 2842 87** **** 9012 -> Счет **3655
+48150.39 USD"""
             ]
 
 
@@ -96,9 +97,10 @@ def test_message_who(get_dic):
 
 
 def test_show_latest_transaction(answer):
-    assert show_latest_transaction(1) == print(answer[0])
-    assert show_latest_transaction(2) == print(answer)
+    path = os.path.join("start_data", "operations.json")
+    assert show_latest_transaction(1, path) == print(answer[0])
+    assert show_latest_transaction(2, path) == print(answer)
 
 
 def test_get_data(fix_get_data):
-    assert get_data() == fix_get_data
+    assert get_data(os.path.join("start_data", "operations.json")) == fix_get_data
